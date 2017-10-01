@@ -2,7 +2,33 @@
 
 ## Task
 
-1.Create a plot with the help of Basemap, on which you plot sales records for 2015 which are not farther away than 50km from Copenhagen city center (lat: 55.676111, lon: 12.568333)
+1. Create a plot with the help of Basemap, on which you plot sales records for 2015 which are not farther away than 50km from Copenhagen city center (lat: 55.676111, lon: 12.568333)
+
+We start by extractring and year and zipcode into numeric values. Two new columns are created 'zip_nr' and 'sell_year' containing.
+
+
+```python
+df['zip_nr'] = [int(el.split(' ')[0]) 
+                for el in df['zip_code'].values]
+df['sell_year'] = df['sell_date'].dt.year
+```
+Then we calculate the number of kilometres from Copenhagen city with the help of a function. We put the values in a new columns 'distance'.
+```python
+df['distance'] = [distance((55.676111,12.568333), el)for el in df[[ 'lat','lon']].values]
+```
+We create a mask on the DataFram with some boolean expressions on the new columns. This will be printed on the map.
+
+```python
+mask = ((~df.lat.isnull()) & 
+        (~df.lon.isnull()) & (df['distance'] <= 50) & 
+        (df['sell_year'] == 2015))
+```
+
+Ploting the geo coordinates on the BaseMap:
+
+```python
+
+```
 
 2. Use folium to plot the locations of the 1992 housing sales for the city centers of Copenhagen (zip code 1000-1499), Odense (zip code 5000), Aarhus (zip code 8000), and Aalborg (zip code 9000), see Assignment 3 onto a map.
 
