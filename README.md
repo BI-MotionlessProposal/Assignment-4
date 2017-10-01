@@ -135,3 +135,5 @@ The output file is also placed in the result folder
 ### Task 7
 
 *7. Freestyle Create a plot, which visualizes a fact hidden in the housing sales data, which you want to highlight to business people.*
+
+This script shows the mean and median price per square meter by construction year for sales records during 2017. This can give an insight to what construction year is "hot" on the market for 2017. The result of the sript is found in result/result_solution_7.png
