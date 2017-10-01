@@ -41,16 +41,15 @@ def distance(origin, destination):
 df['distance'] = [distance((55.676111,12.568333), el)for el in df[[ 'lat','lon']].values]
 #df.head()
 
-from collections import Counter
 
 
 
 mask = ((~df.lat.isnull()) & 
         (~df.lon.isnull()) & (df['distance'] <= 50) & 
         (df['sell_year'] == 2015))
-df_zealand_00_05_large = df[mask]
-x_values = df_zealand_00_05_large['lon']
-y_values = df_zealand_00_05_large['lat']
+df_cph_00_05_large = df[mask]
+x_values = df_cph_00_05_large['lon']
+y_values = df_cph_00_05_large['lat']
 # create new figure, axes instances.
 fig = plt.figure()
 ax = fig.add_axes([x_values.min(), y_values.min(), 
@@ -65,8 +64,8 @@ m = Basemap(llcrnrlon=11.2, llcrnrlat=55.1,
 
 m.drawcoastlines()
 m.fillcontinents(zorder=0)
-m.scatter(df_zealand_00_05_large.lon.values, 
-          df_zealand_00_05_large.lat.values, 
+m.scatter(df_cph_00_05_large.lon.values, 
+          df_cph_00_05_large.lat.values, 
           3, marker='o', latlon=True)
 
 # draw parallels
