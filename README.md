@@ -4,7 +4,7 @@
 
 1. Create a plot with the help of Basemap, on which you plot sales records for 2015 which are not farther away than 50km from Copenhagen city center (lat: 55.676111, lon: 12.568333)
 
-We start by extractring and year and zipcode into numeric values. Two new columns are created 'zip_nr' and 'sell_year' containing.
+We start by extractring and year and zipcode into numeric values. Two new columns are created 'zip_nr' and 'sell_year' containing our vales to compare sell year and zipcode numerically.
 
 
 ```python
@@ -12,7 +12,7 @@ df['zip_nr'] = [int(el.split(' ')[0])
                 for el in df['zip_code'].values]
 df['sell_year'] = df['sell_date'].dt.year
 ```
-Then we calculate the number of kilometres from Copenhagen city with the help of a function. We put the values in a new columns 'distance'.
+Then we calculate the number of kilometres from Copenhagen city with the help of a Harversine function 'def distance(origin, destination):' - taken from lecture class with some modification. We put the values in a new columns 'distance'.
 ```python
 df['distance'] = [distance((55.676111,12.568333), el)for el in df[[ 'lat','lon']].values]
 ```
@@ -27,6 +27,33 @@ mask = ((~df.lat.isnull()) &
 Ploting the geo coordinates on the BaseMap:
 
 ```python
+df_cph_00_05_large = df[mask]
+x_values = df_cph_00_05_large['lon']
+y_values = df_cph_00_05_large['lat']
+# create new figure, axes instances.
+fig = plt.figure()
+ax = fig.add_axes([x_values.min(), y_values.min(), 
+                   x_values.max(), y_values.max()])
+
+# setup mercator map projection.
+m = Basemap(llcrnrlon=11.2, llcrnrlat=55.1, 
+            urcrnrlon=13.1, urcrnrlat=56.2,
+            rsphere=(6378137.00, 6356752.3142),
+            resolution='h', projection='merc',
+            lat_0=40., lon_0=-20., lat_ts=20.)
+
+m.drawcoastlines()
+m.fillcontinents(zorder=0)
+m.scatter(df_cph_00_05_large.lon.values, 
+          df_cph_00_05_large.lat.values, 
+          3, marker='o', latlon=True)
+
+# draw parallels
+m.drawparallels(np.arange(10, 90,  1), 
+                labels=[1, 1, 0, 1])
+# draw meridians
+m.drawmeridians(np.arange(-180, 180, 1), 
+                labels=[1, 1, 0, 1])
 
 ```
 
