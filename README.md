@@ -99,11 +99,34 @@ my_map
 
 ### Task 4
 
-*4. Create a histogram (bar plot), which visualizes the frequency of house trades per zip code area corresponding to the entire dataset of housing sale records.
+The result for this question is in file : "Assignment 4 - 4.ipynb" and solution4.py. Due to some difficulties installing modules with pip or importing them to the project I was forced to use the Jupiter Notebook to write the solutions.
+
+The soluton is simple. First we read the data from the boliga_all_loc.csv then group the values by distinct zipcode. After that it is easy to produce a histogram with sales per zipcode. The output file is in the solution folder.
 
 ### Task 5
 
-*5. Create a cumulatve histogram, which visualizes the frequency of house trades per zip code area corresponding to the entire dataset of housing sale records and the vertical bars are colored to the frequency of rooms per sales record. That is, a plot similar to the following, where single rooms are in the bottom and two room frequencies on top, etc. See, http://matplotlib.org/1.3.0/examples/pylab_examples/histogram_demo_extended.html for example.*
+The result for this question is in file : "Assignment 4 - 5.ipynb" and solution4.py. Due to some difficulties installing modules with pip or importing them to the project I was forced to use the Jupiter Notebook to write the solutions.
+
+Here two steps had to be taken. 
+- One order by distinct zipcode 
+- Two order by room number per sale but the flow is the same.
+
+
+```
+for zip in unique_zips:
+    
+    zip_df = df[df['zip_int'] == zip]
+    rooms_d = {}      
+    
+    unique_rooms = df['no_rooms'].unique()
+    unique_rooms.sort()
+    sales_rooms = collections.OrderedDict()
+    for rooms in unique_rooms:
+        no_sales = len(df[df['no_rooms'] == rooms])
+        sales_rooms[rooms] = no_sales
+    
+```
+The output file is also placed in the result folder
 
 ### Task 6
 
