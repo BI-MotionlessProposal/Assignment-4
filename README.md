@@ -95,7 +95,7 @@ my_map
 
 ### Task 3
 
-*3. Create a 2D plot, which compares prices per square meter (on the x-axis) and distance to Nørreport st. (y-axis) for all housing on Sjæland for the year 2005 and where the zip code is lower than 3000 and the price per square meter is lower than 80000Dkk. Describe in words what you can read out of the plot. Formulate a hypothesis on how the values on the two axis might be related.*
+As a first step the flow of this script processes and modifies data for our needs (modifying zipcode to 4 digits only, as well as casting price_per_sq_m, lon and lat values) and then using haversine function with two input params which are basically four values(norreport lat & long, and target lat long) as a last step, it plots the values and saves as an png file.
 
 ### Task 4
 
@@ -129,8 +129,7 @@ for zip in unique_zips:
 The output file is also placed in the result folder
 
 ### Task 6
-
-*6. Now, you create a 3D histogram, in which you plot the frequency of house trades per zip code area as a 'layer' for every in the dataset, see http://matplotlib.org/examples/mplot3d/index.html for an example.*
+Unfortunately we were unable to finish this task in time since we occured some errors and unexpected behavior.
 
 ### Task 7
 
