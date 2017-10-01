@@ -1,7 +1,7 @@
 # Assignment 4: Data Visualisation
 
 ### Task 1
-
+Solution (see Solution1.py for runnable script):
 *1. Create a plot with the help of Basemap, on which you plot sales records for 2015 which are not farther away than 50km from Copenhagen city center (lat: 55.676111, lon: 12.568333)*
 
 We start by extracting and year and zipcode into numeric values. Two new columns are created 'zip_nr' and 'sell_year' containing our vales to compare sell year and zipcode numerically.
@@ -59,6 +59,39 @@ m.drawmeridians(np.arange(-180, 180, 1),
 ### Task 2
 
 *2. Use folium to plot the locations of the 1992 housing sales for the city centers of Copenhagen (zip code 1000-1499), Odense (zip code 5000), Aarhus (zip code 8000), and Aalborg (zip code 9000), see Assignment 3 onto a map.*
+
+Solution (see Solution2.py for runnable script):
+
+We extract sell year and zipcode as numeric values just like in previous task. Then we make a long compare statement to get the data we are looking for.
+
+```python
+mask = ((df['sell_year'] == 1992) & 
+        (~df.lat.isnull()) & 
+        (~df.lon.isnull()) & 
+        ( ( ( df['zip_nr'] >= 1000 ) & ( df['zip_nr'] <= 1499 ) ) |  
+         ( df['zip_nr'] == 5000 ) |  
+         ( df['zip_nr'] == 8000 ) | 
+         ( df['zip_nr'] == 9000 ) ) 
+       )
+```
+We use folium to display the geocode data on the map
+```python
+import folium
+
+
+my_map = folium.Map(location=[55.88207495748612, 10.636574309440173], zoom_start=6)
+
+for coords in zip(df_result.lon.values, 
+                  df_result.lat.values):
+    folium.CircleMarker(location=[coords[1], coords[0]], radius=2).add_to(my_map)
+directory = 'result'
+if not os.path.exists(directory):
+    os.makedirs(directory)    
+my_map.save(directory+'/1992_housing_sales_4_cities.html')
+my_map
+
+```
+
 
 ### Task 3
 
