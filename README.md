@@ -135,4 +135,5 @@ Unfortunately we were unable to finish this task in time since we occured some e
 
 *7. Freestyle Create a plot, which visualizes a fact hidden in the housing sales data, which you want to highlight to business people.*
 
+Solution 7 (see Solution7.py for runnable script):
 This script shows the mean and median price per square meter by construction year for sales records during 2017. This can give an insight to what construction year is "hot" on the market for 2017. The result of the sript is found in result/result_solution_7.png
